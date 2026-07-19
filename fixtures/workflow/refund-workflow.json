@@ -1,0 +1,13 @@
+{
+  "id": "refund-support-workflow",
+  "name": "Customer-support refund workflow",
+  "actors": ["support-agent", "payment-provider", "ticket-system", "manager"],
+  "stateFields": [
+    "refund.amount",
+    "refund.approvedAmount",
+    "refund.status",
+    "manager.approval",
+    "ticket.status"
+  ],
+  "effects": ["refund.submit", "refund.settle", "ticket.close"]
+}

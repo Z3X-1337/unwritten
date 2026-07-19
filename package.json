@@ -1,0 +1,28 @@
+{
+  "name": "unwritten-missing-spec-compiler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Evidence-grounded missing-spec compiler for AI agent workflows.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch server.mjs",
+    "start": "node server.mjs",
+    "test": "node --test",
+    "check": "node --check server.mjs && node --check src/contracts.mjs && node --check src/hash.mjs && node --check src/mining.mjs && node --check src/policy.mjs && node --check src/workflow.mjs && node --check src/repair.mjs && node --check src/run.mjs && node --check src/core.mjs && node --check src/static-build.mjs && node --check public/app.js && node --check public/demo-data.js && node --test && node scripts/build-static.mjs",
+    "build:static": "node scripts/build-static.mjs"
+  },
+  "keywords": [
+    "openai",
+    "gpt-5.6",
+    "codex",
+    "agent-workflows",
+    "specification-mining",
+    "counterexample",
+    "policy-as-code",
+    "developer-tools"
+  ],
+  "license": "MIT"
+}

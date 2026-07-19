@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Unwritten discovers missing operational rules, proves how agent workflows violate them, and verifies the repair." />
+    <title>Unwritten — The Missing-Spec Compiler for AI Agents</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="topbar">
+      <a href="/" class="brand" aria-label="Unwritten home">
+        <span class="brand-glyph">U/</span>
+        <span>UNWRITTEN</span>
+      </a>
+      <div class="topbar-meta">
+        <span class="runtime-chip" id="runtime-chip"><span class="runtime-dot"></span>Checking runtime</span>
+        <span class="track-chip">Developer Tools</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Evidence-grounded missing-spec compiler</p>
+          <h1>Your agent followed every written rule.<br /><span>It still failed.</span></h1>
+          <p class="hero-lede">
+            Unwritten finds the operational rule nobody wrote, binds it to evidence, proves how the current agent workflow can break it, and compiles the approved rule into verified enforcement.
+          </p>
+        </div>
+        <div class="hero-proof" aria-label="Proof sequence">
+          <span>Evidence</span><b>→</b><span>Rule</span><b>→</b><span>Witness</span><b>→</b><span>Guard</span><b>→</b><span>Proof</span>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="evidence-panel panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-index">01 / Evidence bundle</p>
+              <h2>What the organization actually knows</h2>
+            </div>
+            <span class="model-badge" id="model-badge">GPT-5.6</span>
+          </div>
+
+          <div class="evidence-list" id="evidence-list">
+            <label class="evidence-card">
+              <span class="source-kind">POLICY</span>
+              <strong>Refund Policy</strong>
+              <textarea data-source-id="refund-policy" data-title="Refund Policy" data-kind="policy">Refunds above $500 require manager approval. The approved amount must match the amount returned to the customer.</textarea>
+            </label>
+            <label class="evidence-card">
+              <span class="source-kind">RUNBOOK</span>
+              <strong>Support Runbook</strong>
+              <textarea data-source-id="support-runbook" data-title="Support Runbook" data-kind="runbook">Create the refund with the payment provider, then close the support ticket after processing the refund.</textarea>
+            </label>
+            <label class="evidence-card">
+              <span class="source-kind">OPERATIONS NOTE</span>
+              <strong>Payments Operations Note</strong>
+              <textarea data-source-id="operations-note" data-title="Payments Operations Note" data-kind="operations-note">A refund is not complete until the provider reports settlement. Pending is not settled and must remain open for follow-up.</textarea>
+            </label>
+            <label class="evidence-card">
+              <span class="source-kind">HUMAN DECISION</span>
+              <strong>Approved Historical Case</strong>
+              <textarea data-source-id="historical-case" data-title="Approved Historical Case" data-kind="decision-example">For case RF-1842, the provider returned pending. The senior operator kept the ticket open, escalated the case, and closed it only after settlement was confirmed.</textarea>
+            </label>
+          </div>
+
+          <button class="primary-button" id="mine-button" type="button">
+            <span id="mine-button-label">Find the missing rule</span>
+            <span>↗</span>
+          </button>
+          <p class="safety-note">Bounded demo: four text sources, one synthetic refund workflow, no real account, payment, ticket, repository, or external side effect.</p>
+        </aside>
+
+        <section class="proof-panel panel">
+          <div class="panel-heading proof-heading">
+            <div>
+              <p class="section-index">02 / Rule court & executable proof</p>
+              <h2 id="proof-title">No candidate rule yet</h2>
+            </div>
+            <span class="run-id" id="run-id">NO RUN</span>
+          </div>
+
+          <div class="empty-state" id="empty-state">
+            <div class="empty-mark">?</div>
+            <strong>The dangerous rule may not exist in one document.</strong>
+            <p>Mine the bundle to connect policy, ambiguous workflow language, operations guidance, and a prior human decision.</p>
+          </div>
+
+          <div class="candidate-view hidden" id="candidate-view">
+            <div class="candidate-banner">
+              <div>
+                <span class="candidate-label">CANDIDATE MISSING RULE</span>
+                <h3 id="candidate-title">—</h3>
+                <p id="candidate-statement">—</p>
+              </div>
+              <div class="confidence-ring"><strong id="candidate-confidence">—</strong><span>confidence</span></div>
+            </div>
+
+            <div class="rule-grid">
+              <section class="court-card">
+                <div class="card-title"><span>Evidence</span><b id="evidence-count">0</b></div>
+                <div id="condition-list" class="condition-list"></div>
+              </section>
+              <section class="court-card warning-card">
+                <div class="card-title"><span>Conflict court</span><b id="conflict-count">0</b></div>
+                <div id="ambiguity-list" class="ambiguity-list"></div>
+              </section>
+            </div>
+
+            <label class="approval-box">
+              <input type="checkbox" id="approval-checkbox" />
+              <span>
+                <strong>Human review required</strong>
+                I reviewed the evidence and approve compiling this candidate into an executable specification for this demo.
+              </span>
+            </label>
+            <button class="approve-button" id="approve-button" type="button" disabled>
+              <span id="approve-button-label">Approve rule & find counterexample</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          <div class="run-content hidden" id="run-content">
+            <div class="metrics-row">
+              <article><span>Evidence</span><strong id="metric-evidence">—</strong></article>
+              <article><span>Conflicts</span><strong id="metric-conflicts">—</strong></article>
+              <article class="danger"><span>Witness</span><strong id="metric-witness">—</strong></article>
+              <article class="success"><span>Replay</span><strong id="metric-replay">—</strong></article>
+            </div>
+
+            <nav class="tabs" aria-label="Verification views">
+              <button class="tab active" data-tab="witness" type="button">Violation witness</button>
+              <button class="tab" data-tab="repair" type="button">Verified repair</button>
+              <button class="tab" data-tab="policy" type="button">Policy DSL</button>
+              <button class="tab" data-tab="proof" type="button">Evidence packet</button>
+            </nav>
+
+            <section class="tab-panel active" id="tab-witness">
+              <div class="alert-banner">
+                <div><span>UNWRITTEN RULE VIOLATED</span><strong id="violation-summary">—</strong></div>
+                <span class="alert-pill">REPRODUCED</span>
+              </div>
+              <div class="witness-layout">
+                <div>
+                  <p class="mini-label">Shortest executable counterexample</p>
+                  <div id="witness-steps" class="witness-steps"></div>
+                </div>
+                <div class="state-card">
+                  <p class="mini-label">Observed business state</p>
+                  <dl>
+                    <div><dt>Refund status</dt><dd id="state-refund">—</dd></div>
+                    <div><dt>Ticket status</dt><dd id="state-ticket">—</dd></div>
+                    <div><dt>Manager approval</dt><dd id="state-approval">—</dd></div>
+                    <div><dt>Synthetic effect</dt><dd id="state-effect">—</dd></div>
+                  </dl>
+                </div>
+              </div>
+              <div class="timeline" id="timeline"></div>
+            </section>
+
+            <section class="tab-panel" id="tab-repair">
+              <div class="repair-grid">
+                <div>
+                  <p class="mini-label">Generated guard patch</p>
+                  <pre><code id="guard-code"></code></pre>
+                </div>
+                <div>
+                  <p class="mini-label">Attack + utility replay</p>
+                  <div id="replay-list" class="replay-list"></div>
+                </div>
+              </div>
+              <div class="verification-strip">
+                <span>Unsafe cases blocked <strong id="unsafe-blocked">—</strong></span>
+                <span>Legitimate cases preserved <strong id="legitimate-preserved">—</strong></span>
+                <span>Source agents modified <strong id="source-modified">—</strong></span>
+              </div>
+            </section>
+
+            <section class="tab-panel" id="tab-policy">
+              <div class="code-header"><span>unwritten.policy.yaml</span><span>Closed vocabulary · human approved</span></div>
+              <pre><code id="policy-code"></code></pre>
+            </section>
+
+            <section class="tab-panel" id="tab-proof">
+              <div class="proof-grid">
+                <div>
+                  <p class="mini-label">Candidate provenance</p>
+                  <pre><code id="candidate-code"></code></pre>
+                </div>
+                <div>
+                  <p class="mini-label">Tamper-evident attestation</p>
+                  <pre><code id="attestation-code"></code></pre>
+                </div>
+              </div>
+              <div class="digest-box"><span>SHA-256 evidence digest</span><code id="attestation-digest">—</code></div>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/demo-data.js" defer></script>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

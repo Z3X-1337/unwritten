@@ -1,0 +1,80 @@
+# Devpost Submission Draft
+
+## Project name
+
+Unwritten
+
+## Tagline
+
+Find the rule nobody wrote. Prove the workflow cannot break it.
+
+## Category
+
+Developer Tools
+
+## Inspiration
+
+AI-agent teams normally encode written prompts, schemas, policies and runbooks. Real operations also depend on definitions, exceptions and prior decisions distributed across people and documents. A workflow can follow every written instruction and still fail because the critical operational rule was never encoded.
+
+## What it does
+
+Unwritten is an evidence-grounded missing-spec compiler for AI-agent workflows.
+
+It connects a bounded bundle of policies, workflow language, operations guidance and human decisions; proposes one candidate operational rule with exact quotations; exposes ambiguous and conflicting evidence; requires explicit human approval; compiles the approved rule into a closed executable policy; finds the shortest violating workflow; reproduces the failure through synthetic tool receipts; generates a guard; and accepts the repair only after unsafe and legitimate cases are replayed.
+
+The demo discovers that a refund ticket must not close until settlement is confirmed, the amount matches, and manager approval exists above $500. It then finds a three-transition workflow that closes a $1,200 refund while the provider still reports `pending` and no manager approval exists.
+
+## How we built it
+
+The runtime is a dependency-free Node.js application with a browser evidence editor, rule court, closed policy compiler, bounded breadth-first state explorer, synthetic workflow executor, generated guard, dual replay harness and SHA-256 evidence attestation.
+
+GPT-5.6 is integrated through strict Structured Outputs to connect evidence and propose a candidate rule. The model output is treated as untrusted data: every quote must exist verbatim, unknown workflow vocabulary is rejected, and the rule cannot compile before explicit human approval.
+
+The final verdict is deterministic. State exploration discovers the counterexample, synthetic receipts prove the side effect, and the repair is accepted only if three unsafe cases are blocked while two legitimate cases remain functional.
+
+## How Codex was used
+
+Codex was the primary engineering collaborator. It helped research and reject crowded product categories, preserve the strongest deterministic verification ideas, design the evidence and approval boundaries, implement the state explorer and replay harness, generate the bounded guard, build the judge UI and static artifact, write tests and documentation, and perform the final GPT-5.6 security/product review.
+
+The final submission will include the `/feedback` Session ID from the primary Codex thread where the majority of the current product was built and reviewed.
+
+## Challenges
+
+The hardest product boundary was avoiding the false claim that a model can recover organizational truth. Unwritten therefore proposes candidate rules rather than activating them, requires source-bound evidence and explicit approval, and limits verification claims to the bounded workflow model.
+
+The hardest technical boundary was combining semantic evidence mining with a deterministic verdict. GPT-5.6 performs the semantic proposal; closed code validates provenance, compiles policy, searches states, observes effects and evaluates replay.
+
+## Accomplishments
+
+- Missing rule connected across four evidence sources.
+- Exact quotation validation.
+- Visible ambiguity and contradiction analysis.
+- Explicit approval gate.
+- Closed executable policy DSL.
+- Minimal three-transition counterexample.
+- Synthetic business side-effect receipt.
+- Generated guard and reviewable diff.
+- 3/3 unsafe cases blocked.
+- 2/2 legitimate cases preserved.
+- No source-agent modification.
+- Reproducible no-key judge path and static artifact.
+
+## What we learned
+
+The most dangerous specification is not always incorrect; it may be absent. Agent safety and reliability begin before runtime guardrails: teams first need a defensible way to discover, review and encode the actual rule.
+
+## What is next
+
+Future work would add connector-based evidence ingestion, multiple candidate rules, confidence calibration, temporal policy evolution, framework adapters, human reviewer workflows, CI integration and evaluation on real anonymized operational datasets.
+
+## Testing instructions
+
+1. Run `npm start` and open `http://localhost:3000`.
+2. Click **Find the missing rule**.
+3. Review citations, ambiguity and conflict.
+4. Approve the candidate.
+5. Run the counterexample search.
+6. Inspect the synthetic side effect and final state.
+7. Open the repair tab and confirm 5/5 replay cases pass.
+
+No account, API key, database or external service is required.
