@@ -2,6 +2,10 @@
 
 **Find the rule nobody wrote. Prove the workflow cannot break it.**
 
+**Live judge demo:** https://unwritten-xi.vercel.app
+
+**Public repository:** https://github.com/Z3X-1337/unwritten
+
 Unwritten is an evidence-grounded developer tool for AI-agent workflows. It discovers a candidate operational rule from scattered policies, runbooks, operations notes, and prior human decisions; shows the exact evidence and contradictions behind that rule; requires explicit human approval; compiles the approved rule into a closed executable policy; finds the shortest workflow that violates it; reproduces the failure in a synthetic sandbox; generates a bounded guard; and accepts the repair only after unsafe and legitimate cases are replayed.
 
 The OpenAI Build Week MVP focuses on one complete customer-support refund workflow:
