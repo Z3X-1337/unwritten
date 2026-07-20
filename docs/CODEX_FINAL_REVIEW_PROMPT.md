@@ -1,44 +1,82 @@
-# Codex GPT-5.6 Final Review Prompt
+# Codex GPT-5.6 Primary Build and Final Review Prompt
 
-Run this from the root of the `unwritten` repository in a primary Codex session using GPT-5.6.
+Run this from the root of the `unwritten` repository in a primary Codex session using GPT-5.6. This must be a genuine engineering session, not a cosmetic `/feedback` run.
 
 ```text
-You are performing the final OpenAI Build Week engineering and security review for Unwritten.
+You are taking ownership of the final implementation and security review for Unwritten, an OpenAI Build Week developer tool.
 
-Constraints:
-- Preserve the product scope, public UI, evidence model, policy DSL, demo behavior, and deterministic judge story.
+First read and understand the majority of the repository before editing:
+- AGENTS.md
+- README.md
+- docs/JUDGE_START_HERE.md
+- docs/hackathon-build/spec.md
+- src/contracts.mjs
+- src/mining.mjs
+- src/policy.mjs
+- src/workflow.mjs
+- src/repair.mjs
+- src/run.mjs
+- server.mjs
+- tests/core.test.mjs
+
+Product constraints:
+- Preserve the product scope, public UI, evidence model, closed policy DSL, deterministic judge story, and current demo behavior.
 - Do not add dependencies unless strictly necessary.
-- Make one meaningful, narrowly scoped correctness/security improvement and prove it with regression tests.
-- Read AGENTS.md, README.md, docs/JUDGE_START_HERE.md, and the existing tests before editing.
+- Do not replace deterministic verdicts with LLM-as-judge behavior.
+- Do not make universal security or truth claims.
+- Make substantive, reviewable correctness/security improvements to the core implementation and prove them with regression tests.
 
-Known review target to verify before changing code:
-- server.mjs currently resolves requested static paths and checks them with `resolved.startsWith(publicDir)`.
-- Prefix-based path containment can be unsafe when a sibling path shares the same string prefix (for example a directory whose name starts with `public`).
-- `decodeURIComponent` can also throw on malformed URL encoding before the server returns a controlled response.
+Review targets to verify rather than blindly assume:
 
-Task:
-1. Verify whether these issues are real in the current implementation; do not assume the diagnosis is correct without inspecting the code.
-2. Harden static-file path containment using a boundary-safe method such as `path.relative`, ensuring the resolved target is either inside `publicDir` or rejected. Do not rely on a raw string-prefix check.
-3. Handle malformed percent-encoded paths without crashing the request handler. Return a controlled 400 response.
-4. Add regression tests that demonstrate:
-   - normal static files still load;
-   - traversal attempts are rejected;
-   - prefix-collision paths are rejected;
-   - malformed URI encoding receives a controlled client error and does not terminate the server.
-5. Keep the server dependency-free and maintain the existing security headers.
-6. Run `npm test` and `npm run check`.
-7. Update `docs/CODEX_BUILD_LOG.md` with the verified issue, the exact fix, tests added, and final command results.
-8. Summarize the diff and any residual risk. Do not claim universal security.
+A. Candidate-rule and policy validation
+- Check whether nested `when` clauses are validated against the closed field/operator vocabulary.
+- Check whether condition IDs must be unique.
+- Check whether `requiresHumanApproval` is enforced as true before approval/compilation.
+- Check whether empty or malformed citation quotes can pass validation.
+- Check whether the compiled DSL preserves only validated data.
 
-After the work is complete and all checks pass, run `/feedback` in this same Codex session. Copy the Session ID exactly so it can be entered into the Devpost form.
+B. Static-file serving boundary
+- `server.mjs` currently uses a string-prefix containment check after resolving paths.
+- Verify whether a sibling directory with a shared prefix can bypass this check.
+- Verify how malformed percent-encoded URLs are handled.
+
+Tasks:
+1. Inspect the implementation and document which suspected issues are real and which are not.
+2. Harden candidate-rule and compiled-policy validation where needed while keeping the closed DSL compatible with the current fixture.
+3. Harden static-file containment using a boundary-safe method such as `path.relative`; do not rely on a raw string prefix.
+4. Return a controlled 400 response for malformed URL encoding without terminating the server.
+5. Add regression tests for every verified issue, including:
+   - nested `when` validation;
+   - duplicate condition IDs;
+   - human-approval requirement;
+   - malformed/empty citations where applicable;
+   - normal static-file loading;
+   - traversal and prefix-collision rejection;
+   - malformed URI handling without server termination.
+6. Refactor only where it makes the trust boundary clearer. Keep the runtime dependency-free.
+7. Run `npm test` and `npm run check`; fix all failures.
+8. Update `docs/CODEX_BUILD_LOG.md` with:
+   - files inspected;
+   - verified findings;
+   - design decisions;
+   - changes implemented;
+   - tests added;
+   - exact final check results;
+   - residual limitations.
+9. Review the README claims against the resulting code and correct any inaccurate claim.
+10. Commit the completed changes with a clear message. Push to `main` only if GitHub authentication is already configured; otherwise stop after the commit and show the exact push command.
+
+At the end, provide a concise summary of the architecture and why the final verdict remains deterministic.
+
+Only after the implementation, tests, documentation, and commit are complete, run `/feedback` in this same Codex session and copy the Session ID exactly for the Devpost form.
 ```
 
-## Expected result
+## Required result
 
-The session should produce:
-
-- a real security hardening change in `server.mjs`;
-- regression tests for the static path boundary and malformed encoding;
-- updated build documentation;
-- passing `npm test` and `npm run check` output;
-- one confirmed `/feedback` Session ID.
+- Material review of the core evidence, policy, workflow, server, and tests.
+- Verified hardening changes rather than cosmetic edits.
+- Regression tests covering every accepted finding.
+- Passing `npm test` and `npm run check`.
+- Updated build log and truthful README.
+- A commit containing the Codex changes.
+- One confirmed `/feedback` Session ID from this same primary session.
