@@ -2,30 +2,31 @@
 
 ## Complete
 
-- Product decision: Unwritten.
-- Developer Tools track.
-- Evidence-grounded candidate rule.
-- Citation and closed-vocabulary validation.
-- Explicit approval boundary.
-- Minimal counterexample engine.
+- Product: Unwritten.
+- Track: Developer Tools.
+- Core engine and browser product.
+- Evidence-grounded candidate rule with exact quotations.
+- Explicit human approval boundary.
+- Closed executable policy.
+- Minimal three-transition counterexample.
 - Synthetic execution receipt.
-- Guard generation.
-- Five-case replay.
-- Attestation.
-- Browser UI.
-- Static judge artifact.
-- Automated tests.
-- README, judge guide, demo script and Devpost draft.
+- Generated guard and five-case replay.
+- SHA-256 attestation.
+- 13 automated tests.
+- GitHub repository: https://github.com/Z3X-1337/unwritten
+- GitHub CI workflow.
+- Public production demo: https://unwritten-xi.vercel.app
+- Devpost project and public links.
+- Final Devpost form answers.
+- Final under-three-minute video script.
+- Thumbnail generated locally; manual upload intentionally left for the final step.
 
 ## Required before final submission
 
-- Run the primary Codex workflow with GPT-5.6.
-- Make one meaningful reviewed improvement.
-- Run `/feedback` and record the Session ID.
-- Publish the GitHub repository with MIT license.
-- Deploy the public demo.
-- Record and upload a public or unlisted YouTube demo under three minutes with audio.
-- Verify all links in an incognito window.
-- Create or update the Devpost project and thumbnail.
-- Complete the official submission fields and eligibility declarations.
-- Run Devpost preflight and obtain explicit final confirmation before submission.
+1. Run a primary Codex session using GPT-5.6 for a meaningful repository review or improvement.
+2. Run `/feedback` in that session and record the confirmed Session ID.
+3. Record the demo using `docs/VIDEO_SCRIPT_FINAL.md`.
+4. Upload it to YouTube as Public or Unlisted and verify it in a private browser.
+5. Insert the YouTube URL and Session ID into Devpost.
+6. Upload the prepared thumbnail manually.
+7. Run final preflight and obtain explicit confirmation before submitting.
